@@ -1,5 +1,13 @@
 HTTP log monitoring console program (in python)
 
+-Run simulation with run_simulation.bat
+-Run log monitor with run_monitor.bat
+-Run Unit tests with run_tests.bat
+(py must be recognized as an internal command)
+
+Parameters can be modified in parameters.cfg
+
+
 Create a simple console program that monitors HTTP traffic on your machine:
 
     Consume an actively written-to w3c-formatted HTTP access log
