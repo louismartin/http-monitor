@@ -13,7 +13,7 @@ class EntryGenerator(Thread):
     def __init__(self, logPath, rate):
         """Constructor:
         :param logPath: path of the simulation log
-        :param rate: entry generation rate in number of entries per second"""
+        :param rate: entry generation rate in number of entries per minute"""
         Thread.__init__(self)
         self.logPath = logPath
         # Set to False to stop the generation loop and end the thread (stop())
@@ -24,7 +24,7 @@ class EntryGenerator(Thread):
         self.methods = ["GET", "GET", "GET", "POST", "POST", "PUT", "DELETE"]
         self.sections = ["/img", "/captcha", "/css", "/foo", "/foo", "/bar"]
         self.codes = ["200", "200", "200", "200", "200", "304", "403", "404"]
-        # Number of entries generated per seconds
+        # Number of entries generated per minute
         self.rate = rate
 
     def generate_entry(self, entryTime):
@@ -97,5 +97,5 @@ class EntryGenerator(Thread):
             if self.generating:
                 now = datetime.now()
                 self.write_entry(now)
-            # Sleep on average during (1/rate) seconds
-            sleep(random.random()*2/self.rate)
+            # Sleep on average during (1/rate*60) seconds
+            sleep(random.random()*2/self.rate*60)

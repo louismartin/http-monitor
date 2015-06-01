@@ -52,9 +52,9 @@ class TestEntryGenerator(unittest.TestCase):
         print("********************************")
         print("test_entry_generator()")
         logPath = "tmp.log"
-        entryGenerator = EntryGenerator(logPath, rate=50)
+        entryGenerator = EntryGenerator(logPath, rate=600)
         entryGenerator.start()
-        sleep(0.1)
+        sleep(0.5)
         entryGenerator.stop()
         entryGenerator.join()
         with open(logPath, "r") as generatedLog:
@@ -69,7 +69,7 @@ class TestLogHandler(unittest.TestCase):
         """Initialization of the tests"""
         # Create temporary log file for testing the methods
         self.logPath = "tmp.log"
-        self.generatingRate = 1
+        self.generatingRate = 60
         self.entryGenerator = EntryGenerator(self.logPath, self.generatingRate)
         now = datetime.now()
         # Add a 10 hours old entry
@@ -213,7 +213,9 @@ class TestLogHandler(unittest.TestCase):
         self.assertEqual(self.logHandler.alertStatus, False)
         # Add twice as much entries than the threshold to trigger the alert
         now = datetime.now()
-        for i in range(0, 2*self.logHandler.alertThreshold):
+        entryCount = int(2 * self.logHandler.alertThreshold
+                         * self.logHandler.monitorDuration / 60)
+        for i in range(0, entryCount):
             self.entryGenerator.write_entry(now)
         # Wait for the LogHandler to read the log
         sleep(1.5*self.logHandler.refreshPeriod)
@@ -232,7 +234,9 @@ class TestLogHandler(unittest.TestCase):
         self.assertEqual(self.logHandler.alertStatus, False)
         # Add twice as much entries than the threshold to trigger the alert
         now = datetime.now()
-        for i in range(0, 2*self.logHandler.alertThreshold):
+        entryCount = int(2 * self.logHandler.alertThreshold
+                         * self.logHandler.monitorDuration / 60)
+        for i in range(0, entryCount):
             self.entryGenerator.write_entry(now)
         # Wait for the LogHandler to read the log
         sleep(self.refreshPeriod)

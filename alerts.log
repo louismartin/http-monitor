@@ -1,0 +1,89 @@
+[02/Jun/2015:00:16:29] High traffic generated an alert - hits = 108
+[02/Jun/2015:00:17:26] High traffic generated an alert - hits = 105
+[02/Jun/2015:00:17:37] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:17:40] High traffic generated an alert - hits = 102
+[02/Jun/2015:00:17:41] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:17:58] High traffic generated an alert - hits = 102
+[02/Jun/2015:00:17:59] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:18:00] High traffic generated an alert - hits = 108
+[02/Jun/2015:00:18:01] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:18:02] High traffic generated an alert - hits = 109
+[02/Jun/2015:00:18:24] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:18:25] High traffic generated an alert - hits = 102
+[02/Jun/2015:00:18:26] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:18:27] High traffic generated an alert - hits = 103
+[02/Jun/2015:00:18:31] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:18:33] High traffic generated an alert - hits = 104
+[02/Jun/2015:00:18:52] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:19:05] High traffic generated an alert - hits = 110
+[02/Jun/2015:00:19:36] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:23:13] High traffic generated an alert - hits = 87
+[02/Jun/2015:00:23:16] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:23:17] High traffic generated an alert - hits = 88
+[02/Jun/2015:00:23:37] High traffic generated an alert - hits = 256
+[02/Jun/2015:00:24:08] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:24:16] High traffic generated an alert - hits = 263
+[02/Jun/2015:00:24:39] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:24:47] High traffic generated an alert - hits = 256
+[02/Jun/2015:00:25:15] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:25:26] High traffic generated an alert - hits = 256
+[02/Jun/2015:00:25:30] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:25:31] High traffic generated an alert - hits = 257
+[02/Jun/2015:00:25:51] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:26:43] High traffic generated an alert - hits = 261
+[02/Jun/2015:00:26:56] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:27:05] High traffic generated an alert - hits = 256
+[02/Jun/2015:00:27:11] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:27:12] High traffic generated an alert - hits = 259
+[02/Jun/2015:00:27:16] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:27:17] High traffic generated an alert - hits = 257
+[02/Jun/2015:00:27:20] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:27:22] High traffic generated an alert - hits = 257
+[02/Jun/2015:00:27:42] High traffic generated an alert - hits = 259
+[02/Jun/2015:00:31:58] High traffic generated an alert - hits = 257
+[02/Jun/2015:00:33:01] High traffic generated an alert - hits = 260
+[02/Jun/2015:00:33:04] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:33:05] High traffic generated an alert - hits = 258
+[02/Jun/2015:00:33:17] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:35:26] High traffic generated an alert - hits = 258
+[02/Jun/2015:00:35:27] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:35:32] High traffic generated an alert - hits = 256
+[02/Jun/2015:00:35:33] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:35:39] High traffic generated an alert - hits = 256
+[02/Jun/2015:00:35:47] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:35:48] High traffic generated an alert - hits = 256
+[02/Jun/2015:00:35:52] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:35:58] High traffic generated an alert - hits = 256
+[02/Jun/2015:00:35:59] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:37:09] High traffic generated an alert - hits = 256
+[02/Jun/2015:00:37:16] High traffic generated an alert - hits = 42
+[02/Jun/2015:00:37:18] High traffic generated an alert - hits = 2
+[02/Jun/2015:00:37:21] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:40:13] High traffic generated an alert - hits = 42
+[02/Jun/2015:00:40:15] High traffic generated an alert - hits = 2
+[02/Jun/2015:00:40:18] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:42:33] High traffic generated an alert - hits = 2
+[02/Jun/2015:00:42:35] High traffic generated an alert - hits = 44
+[02/Jun/2015:00:42:36] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:43:12] High traffic generated an alert - hits = 8
+[02/Jun/2015:00:43:15] High traffic generated an alert - hits = 2
+[02/Jun/2015:00:43:18] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:43:45] High traffic generated an alert - hits = 8
+[02/Jun/2015:00:43:47] High traffic generated an alert - hits = 2
+[02/Jun/2015:00:43:50] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:44:52] High traffic generated an alert - hits = 264
+[02/Jun/2015:00:44:54] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:44:58] High traffic generated an alert - hits = 257
+[02/Jun/2015:00:45:00] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:45:27] High traffic generated an alert - hits = 266
+[02/Jun/2015:00:45:46] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:48:09] High traffic generated an alert - hits = 8
+[02/Jun/2015:00:48:14] High traffic generated an alert - hits = 8
+[02/Jun/2015:00:48:16] High traffic generated an alert - hits = 2
+[02/Jun/2015:00:48:19] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:49:15] High traffic generated an alert - hits = 170
+[02/Jun/2015:00:49:32] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:49:33] High traffic generated an alert - hits = 167
+[02/Jun/2015:00:49:34] Traffic slowed down, the alert has recovered
+[02/Jun/2015:00:49:35] High traffic generated an alert - hits = 167
+[02/Jun/2015:00:49:36] Traffic slowed down, the alert has recovered

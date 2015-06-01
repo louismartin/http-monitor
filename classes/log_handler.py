@@ -21,7 +21,7 @@ class LogHandler(Thread):
         """Constructor
         :param logPath: path of the log file
         :param refreshPeriod: Period to check on the log in seconds
-        :param alertThreshold: Number of hits to trigger alarm
+        :param alertThreshold: Number of hits/minute to trigger alarm
         :param monitorDuration: Data is only kept during this time in seconds
         """
 
@@ -161,20 +161,24 @@ class LogHandler(Thread):
 
     def display_message(self):
         """Creates and displays all informations in the console"""
-        msg = "**************************\nWelcome to HTTP Monitor!\
+        msg = "**************************\nWelcome to HTTP Monitor\
                           \n**************************\n\n"
         msg += "Parameters:\n"
-        msg += "Alert threshold = %d hits     " % self.alertThreshold
-        msg += "Refresh period = %ds     " % self.refreshPeriod
+        msg += "Alert threshold = %d hits/min   " % self.alertThreshold
+        msg += "Refresh period = %ds   " % self.refreshPeriod
         msg += "Monitor duration = %ds\n\n\n" % self.monitorDuration
         msg += "Summary:\n"
-        msg += "Current hits: %d" % self.hits
+        msg += "Average hits/min: %d" % (self.hits/self.monitorDuration*60)
         if self.alertStatus:
             msg += (" > %d         **********ALERT**********\n"
                     % self.alertThreshold)
         else:
             msg += "                    Everything OK\n"
-        msg += "\nClient data: %d Kb" % (self.size/1000)
+        if self.hits != 0:
+            avgData = self.size/1000/self.hits
+        else:
+            avgData = 0
+        msg += "\nAverage client data: %d Kb/hit" % avgData
         msg += "\nSections     -> " + self.summary(self.sections)
         msg += "\nClients      -> " + self.summary(self.ips)
         msg += "\nStatus codes -> " + self.summary(self.codes)
@@ -205,11 +209,12 @@ class LogHandler(Thread):
                 self.drop_old_entries()
                 # if threshold is exceeded
                 # but the alert was not activated before, call alert()
-                if self.hits > self.alertThreshold and not self.alertStatus:
+                hitRate = self.hits/self.monitorDuration*60
+                if hitRate > self.alertThreshold and not self.alertStatus:
                     self.alert()
                 # else, if the alert is on but hits went below the threshold,
                 # end the alert
-                elif self.hits < self.alertThreshold and self.alertStatus:
+                elif hitRate < self.alertThreshold and self.alertStatus:
                     self.end_alert()
                 # Check if the console output is enabled
                 if self.printStatus:
