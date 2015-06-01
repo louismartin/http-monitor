@@ -1,5 +1,5 @@
-HTTP log monitoring console program
-(in python)
+HTTP log monitoring console program (in python)
+
 Create a simple console program that monitors HTTP traffic on your machine:
 
     Consume an actively written-to w3c-formatted HTTP access log
