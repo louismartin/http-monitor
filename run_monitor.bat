@@ -1,0 +1,2 @@
+py monitor.py
+pause
