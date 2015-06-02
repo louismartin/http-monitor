@@ -3,6 +3,14 @@ HTTP log monitoring console program (python 3.4)
 
 Parameters should be set in parameters.cfg
 
+On Linux:
+-Run simulation with run_simulation.sh
+-Run log monitor with run_monitor.sh
+-Run Unit tests with run_tests.sh
+(python3.4 must be recognized as an internal command)
+
+
+On Windows:
 -Run simulation with run_simulation.bat
 -Run log monitor with run_monitor.bat
 -Run Unit tests with run_tests.bat
