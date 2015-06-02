@@ -4,10 +4,16 @@ HTTP log monitoring console program (python 3.4)
 Parameters should be set in parameters.cfg
 
 On Linux:
+-Set files as executables: 
+	chmod +x run_simulation.sh
+	chmod +x run_monitor.sh
+	chmod +x run_tests.sh
+	
 -Run simulation with run_simulation.sh
 -Run log monitor with run_monitor.sh
 -Run Unit tests with run_tests.sh
 (python3.4 must be recognized as an internal command)
+
 
 
 On Windows:
