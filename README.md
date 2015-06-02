@@ -1,7 +1,7 @@
 HTTP log monitoring console program (python 3.4)
 
 
-Parameters should be set in parameters.cfg
+Set log path and parameters in parameters.cfg
 
 On Linux:
 -Set files as executables: 
