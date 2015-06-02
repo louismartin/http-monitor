@@ -1,6 +1,6 @@
 # Run the HTTP monitor with parameters from parameters.cfg
 
-from classes.log_handler import LogHandler
+from log_handler import LogHandler
 import configparser
 
 

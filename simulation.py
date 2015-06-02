@@ -1,7 +1,7 @@
 # Run a the HTTP monitor along with an entry generator on a simulated log file
 
-from classes.entry_generator import EntryGenerator
-from classes.log_handler import LogHandler
+from entry_generator import EntryGenerator
+from log_handler import LogHandler
 from time import sleep
 import configparser
 import os

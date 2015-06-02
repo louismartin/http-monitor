@@ -1,9 +1,9 @@
 # Unit tests that check if the classes and methods are working as intended
 
 import unittest
-from classes.log_entry import LogEntry
-from classes.entry_generator import EntryGenerator
-from classes.log_handler import LogHandler
+from log_entry import LogEntry
+from entry_generator import EntryGenerator
+from log_handler import LogHandler
 from time import sleep
 from datetime import datetime
 from datetime import timedelta

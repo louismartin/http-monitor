@@ -1,7 +1,7 @@
 # The LogHandler object is a thread that handles
 # the processing and monitoring of the log
 
-from classes.log_entry import LogEntry
+from log_entry import LogEntry
 from collections import deque, Counter
 from time import sleep
 from datetime import datetime
@@ -188,8 +188,16 @@ class LogHandler(Thread):
         msg += self.alerts
         # Clear the console of the previous message
         # so that it appears to be refreshed
-        os.system("cls")
-        print(msg, end="\r")
+        if os.name == "nt":
+            os.system("cls")
+            print(msg)
+        elif os.name == "posix":
+            os.system("clear")
+            print(msg)
+        else:
+            print("OS not supported")
+            input("PRESS ENTER TO EXIT")
+            self.stop()
 
     def summary(self, items):
         """Returns a String summary of a particular Counter object
