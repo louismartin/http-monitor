@@ -1,3 +1,2 @@
-#!/bin/bash
-python3.4 simulation.py
-read -p "PRESS ENTER TO EXIT."
+#!/bin/sh
+python3.4 scripts/simulation.py

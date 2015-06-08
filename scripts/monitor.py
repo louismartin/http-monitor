@@ -13,3 +13,5 @@ treshold = float(config.get("Monitor", "treshold"))
 monitorDuration = float(config.get("Monitor", "monitorDuration"))
 logHandler = LogHandler(logPath, refreshPeriod, treshold, monitorDuration)
 logHandler.start()
+# Wait for the logHandler to finish to end the program
+logHandler.join()

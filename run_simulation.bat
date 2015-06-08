@@ -1,1 +1,1 @@
-py simulation.py
+py scripts/simulation.py

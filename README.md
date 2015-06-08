@@ -9,8 +9,10 @@ On Linux:
 	chmod +x run_monitor.sh
 	chmod +x run_tests.sh
 	
--Run simulation with run_simulation.sh
--Run log monitor with run_monitor.sh
+-Run simulation with run_simulation.sh 
+(press q to exit, wheel to scroll)
+-Run log monitor with run_monitor.sh 
+(press q to exit, wheel to scroll)
 -Run Unit tests with run_tests.sh
 (python3.4 must be recognized as an internal command)
 

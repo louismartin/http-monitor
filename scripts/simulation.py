@@ -22,3 +22,8 @@ logHandler = LogHandler(logPath, refreshPeriod, treshold, monitorDuration)
 entryGenerator.start()
 sleep(1)
 logHandler.start()
+
+# Wait for the logHandler to finish to end the generator
+logHandler.join()
+entryGenerator.stop()
+entryGenerator.join()

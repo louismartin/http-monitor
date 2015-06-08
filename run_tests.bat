@@ -1,2 +1,2 @@
-py unittests.py
+py scripts/unittests.py
 pause

@@ -8,6 +8,8 @@ from datetime import datetime
 from datetime import timedelta
 from threading import Thread
 import os
+if os.name == "posix":
+    import curses
 
 
 class LogHandler(Thread):
@@ -50,7 +52,7 @@ class LogHandler(Thread):
         # Set it to False to stop displaying messages in the console
         self.printStatus = True
         # Alerts messages will be stored in this string
-        self.alerts = ""
+        self.alerts = "\n"
 
     def add_entry(self, entry):
         """Adds an LogEntry to the handler and updates stats"""
@@ -119,9 +121,7 @@ class LogHandler(Thread):
                         self.add_entry(logEntry)
                 i += 1
         except:
-            print("*** ERROR: LogHandler cannot read the log file ***\n\n")
-            self.running = False
-            input("PRESS ENTER TO EXIT")
+            self.stop("ERROR: LogHandler cannot read the log file")
 
     def drop_old_entries(self):
         """Remove entries older than the monitored duration"""
@@ -134,8 +134,9 @@ class LogHandler(Thread):
 
     def alert(self):
         """Triggers an alert when hits are too high"""
-        alert = ("[%s] High traffic generated an alert - hits = %d\n"
-                 % (datetime.now().strftime("%d/%b/%Y:%H:%M:%S"), self.hits))
+        alert = ("[%s] HIGH TRAFFIC generated an ALERT - hits/min = %d\n"
+                 % (datetime.now().strftime("%d/%b/%Y:%H:%M:%S"),
+                    self.hits/self.monitorDuration*60))
         # Add the alert message before all the other messages
         self.alerts = alert + self.alerts
         # Store this alert in a file to keep history
@@ -155,11 +156,17 @@ class LogHandler(Thread):
             alertLog.write(alert)
         self.alertStatus = False
 
-    def stop(self):
-        """Stops the monitoring loop"""
-        self.running = False
-
     def display_message(self):
+        """wrapper for displaying a message"""
+        # Different display methods depending on OS
+        if os.name == "nt":
+            self.display_message_windows()
+        elif os.name == "posix":
+            self.display_message_linux()
+        else:
+            self.stop("OS not supported")
+
+    def display_message_windows(self):
         """Creates and displays all informations in the console"""
         msg = "**************************\nWelcome to HTTP Monitor\
                           \n**************************\n\n"
@@ -188,16 +195,82 @@ class LogHandler(Thread):
         msg += self.alerts
         # Clear the console of the previous message
         # so that it appears to be refreshed
-        if os.name == "nt":
-            os.system("cls")
-            print(msg)
-        elif os.name == "posix":
-            os.system("clear")
-            print(msg)
-        else:
-            print("OS not supported")
-            input("PRESS ENTER TO EXIT")
-            self.stop()
+        os.system("cls")
+        print(msg)
+
+    def display_message_linux(self):
+        """Creates and displays all informations in the console
+        using curses package"""
+        try:
+            size = self.stdscr.getmaxyx()
+
+            # Display message
+            self.pad = curses.newpad(self.alerts.count("\n")+20, 200)
+            msg = "************************\nWelcome to HTTP Monitor\
+\n************************\n\n"
+            self.pad.addstr(0, 0, msg, curses.A_BOLD)
+
+            msg = "Parameters:\n"
+            msg += "Alert threshold = %d hits/min   " % self.alertThreshold
+            msg += "Refresh period = %ds   " % self.refreshPeriod
+            msg += "Monitor duration = %ds\n\n\n" % self.monitorDuration
+            curses.init_pair(1, curses.COLOR_BLUE, -1)
+            self.pad.addstr(msg, curses.color_pair(1))
+
+            self.pad.addstr("Summary:\n", curses.A_BOLD)
+            self.pad.addstr("Average hits/min: ")
+            self.pad.addstr(str(int(self.hits/self.monitorDuration*60)),
+                            curses.A_BOLD)
+            if self.alertStatus:
+                self.pad.addstr((" > %d         " % self.alertThreshold))
+                curses.init_pair(2, -1, curses.COLOR_RED)
+                self.pad.addstr("**********ALERT**********\n",
+                                curses.color_pair(2))
+            else:
+                self.pad.addstr("                    ")
+                curses.init_pair(3, curses.COLOR_GREEN, -1)
+                self.pad.addstr("Everything OK\n", curses.color_pair(3))
+
+            if self.hits != 0:
+                avgData = self.size/1000/self.hits
+            else:
+                avgData = 0
+            msg = "\nAverage client data: %d Kb/hit" % avgData
+            msg += "\nSections     -> " + self.summary(self.sections)
+            msg += "\nClients      -> " + self.summary(self.ips)
+            msg += "\nStatus codes -> " + self.summary(self.codes)
+            msg += "\nMethods      -> " + self.summary(self.methods)
+            msg += "\n\n\n"
+            curses.init_pair(4, curses.COLOR_YELLOW, -1)
+            self.pad.addstr(msg, curses.color_pair(4))
+
+            self.pad.addstr("Alerts (Stored in real time in alerts.log):\n",
+                            curses.A_BOLD)
+            self.pad.addstr(self.alerts)
+            self.pad.refresh(self.padPos, 0, 0, 0, size[0]-1, size[1]-1)
+        except curses.error:
+            self.stop("ERROR with curses operations")
+
+    def init_window(self):
+        """Initialize linux display window"""
+        if os.name == "posix":
+            # Postition of cursor
+            self.padPos = 0
+            try:
+                if self.printStatus:
+                    # Configure curses window
+                    self.stdscr = curses.initscr()
+                    curses.start_color()
+                    curses.use_default_colors()
+                    curses.noecho()
+                    curses.cbreak()
+                    self.stdscr.nodelay(1)
+                    self.stdscr.keypad(1)
+                    self.stdscr.leaveok(1)
+                    self.stdscr.addstr("************************\nWelcome to HTTP Monitor\
+    \n************************\n\n")
+            except curses.error:
+                self.stop("ERROR with curses operations")
 
     def summary(self, items):
         """Returns a String summary of a particular Counter object
@@ -207,24 +280,58 @@ class LogHandler(Thread):
             summary += str(item[0])+" (%d%%)   " % (item[1]/self.hits*100)
         return summary
 
+    def get_key_stroke(self):
+        """Handles user key strokes"""
+        if os.name == "posix" and self.printStatus:
+            c = self.stdscr.getch()
+            # Quit when user presses q
+            if c == ord('q'):
+                self.stop("Program exiting...")
+            # Scroll self.pad
+            elif c == curses.KEY_DOWN:
+                # Allow scrolling down only when message is larger than window
+                maxV = 19 + self.alerts.count("\n") - self.stdscr.getmaxyx()[0]
+                self.padPos = min(self.padPos + 1, maxV)
+            elif c == curses.KEY_UP:
+                self.padPos = max(self.padPos - 1, 0)
+
     def run(self):
         """Method called when thread is started, main monitoring loop"""
+        self.init_window()
         # Loop stops when stop() is called
         while self.running:
-            self.read()
-            # If log file cannot be accessed self.running is set to false
-            if self.running:
-                self.drop_old_entries()
-                # if threshold is exceeded
-                # but the alert was not activated before, call alert()
-                hitRate = self.hits/self.monitorDuration*60
-                if hitRate > self.alertThreshold and not self.alertStatus:
-                    self.alert()
-                # else, if the alert is on but hits went below the threshold,
-                # end the alert
-                elif hitRate < self.alertThreshold and self.alertStatus:
-                    self.end_alert()
-                # Check if the console output is enabled
-                if self.printStatus:
-                    self.display_message()
-                sleep(self.refreshPeriod)
+            # Check if user sent key stroke
+            self.get_key_stroke()
+
+            # refresh only every delta
+            delta = timedelta(seconds=self.refreshPeriod)
+            if self.lastReadTime + delta < datetime.now():
+                self.read()
+                # If log file cannot be accessed self.running is set to false
+                if self.running:
+                    self.drop_old_entries()
+                    # if threshold is exceeded
+                    # but the alert was not activated before, call alert()
+                    hitRate = self.hits/self.monitorDuration*60
+                    if hitRate > self.alertThreshold and not self.alertStatus:
+                        self.alert()
+                    # else, if alert on but hits went below the threshold,
+                    # end the alert
+                    elif hitRate < self.alertThreshold and self.alertStatus:
+                        self.end_alert()
+                    # Check if the console output is enabled
+                    if self.printStatus:
+                        self.display_message()
+
+    def stop(self, *args):
+        """Stops the monitoring loop"""
+        self.running = False
+        if self.printStatus:
+            if os.name == "posix":
+                self.stdscr.keypad(0)
+                curses.nocbreak()
+                curses.echo()
+                curses.endwin()
+            if len(args) == 1 and isinstance(args[0], str):
+                print(args[0])
+                sleep(1)

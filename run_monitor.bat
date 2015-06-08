@@ -1,2 +1,2 @@
-py monitor.py
+py scripts/monitor.py
 pause
