@@ -134,8 +134,8 @@ class LogHandler(Thread):
 
     def alert(self):
         """Triggers an alert when hits are too high"""
-        alert = ("[%s] High traffic generated an alert - hits = %d\n"
-                 % (datetime.now().strftime("%d/%b/%Y:%H:%M:%S"), self.hits))
+        alert = ("[%s] HIGH TRAFFIC generated an alert - hits/min = %d\n"
+                 % (datetime.now().strftime("%d/%b/%Y:%H:%M:%S"), self.hits/self.monitorDuration*60))
         # Add the alert message before all the other messages
         self.alerts = alert + self.alerts
         # Store this alert in a file to keep history
