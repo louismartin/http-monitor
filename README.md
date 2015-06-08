@@ -1,28 +1,27 @@
 HTTP log monitoring console program (python 3.4)
 
-
 Set log path and parameters in parameters.cfg
 
 On Linux:
--Set files as executables: 
-	chmod +x run_simulation.sh
-	chmod +x run_monitor.sh
-	chmod +x run_tests.sh
+-Set files as executables:  
+	chmod +x run_simulation.sh  
+	chmod +x run_monitor.sh  
+	chmod +x run_tests.sh  
 	
--Run simulation with run_simulation.sh 
-(press q to exit, wheel to scroll)
--Run log monitor with run_monitor.sh 
-(press q to exit, wheel to scroll)
--Run Unit tests with run_tests.sh
-(python3.4 must be recognized as an internal command)
+-Run simulation with run_simulation.sh  
+(press q to exit, wheel to scroll)  
+-Run log monitor with run_monitor.sh   
+(press q to exit, wheel to scroll)  
+-Run Unit tests with run_tests.sh  
+(python3.4 must be recognized as an internal command)  
 
 
 
-On Windows:
--Run simulation with run_simulation.bat
--Run log monitor with run_monitor.bat
--Run Unit tests with run_tests.bat
-(py must be recognized as an internal command)
+On Windows:  
+-Run simulation with run_simulation.bat  
+-Run log monitor with run_monitor.bat  
+-Run Unit tests with run_tests.bat  
+(py must be recognized as an internal command)  
 
 
 
@@ -34,7 +33,7 @@ Create a simple console program that monitors HTTP traffic on your machine:
 
     Make sure a user can keep the console app running and monitor traffic on their machine
 
-    Whenever total traffic for the past 2 minutes exceeds a certain number on average, add a message saying that ìHigh traffic generated an alert - hits = {value}, triggered at {time}î
+    Whenever total traffic for the past 2 minutes exceeds a certain number on average, add a message saying that ‚ÄúHigh traffic generated an alert - hits = {value}, triggered at {time}‚Äù
 
     Whenever the total traffic drops again below that value on average for the past 2 minutes, add another message detailing when the alert recovered
 
@@ -42,6 +41,6 @@ Create a simple console program that monitors HTTP traffic on your machine:
 
     Write a test for the alerting logic
 
-    Explain how youíd improve on this application design
+    Explain how you‚Äôd improve on this application design
 
 
